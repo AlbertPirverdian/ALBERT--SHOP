@@ -14,7 +14,7 @@ function(data){
     data = data['feed']['entry'] 
     console.log(data);
     goods = arrayHelper(data);
-    console.log(goods);w
+    console.log(goods);
     show(data);
 }
    )
@@ -34,7 +34,7 @@ function(data){
        console.log(e.target.attributes)
        console.log(e.target.attributes.name.nodeValue,e.target.attributes.data.nodeValue);
        if(e.target.attributes.name.nodeValue == 'add_to_cart'){
-       addToCart(e.target.attributes.name.nodeValue);
+       addToCart(e.target.attributes.data.nodeValue);
    }
 }
 
@@ -46,18 +46,33 @@ if(cart[elem] !== undefined){
             cart[elem] = 1;
         }
         console.log(cart);
+        showCart();
      }
      function arrayHelper(arr){
          var out = {};
-         for(var i= 0;i < arr.length;i++){
+         for(var i= 0;i < arr.length;i++ч   ){
              var temp = {};
              temp['articul'] = arr[i]['gsx$article']['$t'];
-             temp['articul'] = arr[i]['gsx$name']['$t'];
-             temp['articul'] = arr[i]['gsx$count']['$t'];
-             temp['articul'] = arr[i]['gsx$price']['$t'];
-             temp['articul'] = arr[i]['gsx$image']['$t'];
+             temp['name'] = arr[i]['gsx$name']['$t'];
+             temp['count'] = arr[i]['gsx$count']['$t'];
+             temp['price'] = arr[i]['gsx$price']['$t'];
+             temp['image'] = arr[i]['gsx$image']['$t'];
             out[arr[i]['gsx$article']['$t']] = temp;
         }
         return out;
+     }
+     function showCart(){
+         var ul =document.querySelector('.cart');
+         ul.innerHTML= '';
+         var sum = 0;
+         for(var key in cart){
+             var li = '<li>'
+             li += goods[key]['name'] + ' ';
+             li += cart[key] +' шт ';
+             li += goods[key]['price']*cart[key];
+             sum += goods[key]['price']* cart[key];
+             ul.innerHTML += li;
+         }
+         ul.innerHTML += 'Итог: '+ sum;
      }
 }
