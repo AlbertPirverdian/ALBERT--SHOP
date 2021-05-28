@@ -50,7 +50,7 @@ if(cart[elem] !== undefined){
      }
      function arrayHelper(arr){
          var out = {};
-         for(var i= 0;i < arr.length;i++ч   ){
+         for(var i= 0;i < arr.length;i++){
              var temp = {};
              temp['articul'] = arr[i]['gsx$article']['$t'];
              temp['name'] = arr[i]['gsx$name']['$t'];
